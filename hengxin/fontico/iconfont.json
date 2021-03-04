@@ -1,0 +1,65 @@
+{
+  "id": "2384972",
+  "name": "hengxin",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "18863066",
+      "name": "人",
+      "font_class": "ren",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "19959005",
+      "name": "community-fill",
+      "font_class": "community-fill",
+      "unicode": "e71d",
+      "unicode_decimal": 59165
+    },
+    {
+      "icon_id": "19959025",
+      "name": "friendadd",
+      "font_class": "friendadd",
+      "unicode": "e721",
+      "unicode_decimal": 59169
+    },
+    {
+      "icon_id": "19959065",
+      "name": "moments",
+      "font_class": "moments",
+      "unicode": "e728",
+      "unicode_decimal": 59176
+    },
+    {
+      "icon_id": "19959089",
+      "name": "people",
+      "font_class": "people",
+      "unicode": "e72d",
+      "unicode_decimal": 59181
+    },
+    {
+      "icon_id": "19959113",
+      "name": "send",
+      "font_class": "send",
+      "unicode": "e737",
+      "unicode_decimal": 59191
+    },
+    {
+      "icon_id": "1906259",
+      "name": "CHAT",
+      "font_class": "CHAT",
+      "unicode": "e6e5",
+      "unicode_decimal": 59109
+    },
+    {
+      "icon_id": "7771605",
+      "name": "chat",
+      "font_class": "chat",
+      "unicode": "e75e",
+      "unicode_decimal": 59230
+    }
+  ]
+}
