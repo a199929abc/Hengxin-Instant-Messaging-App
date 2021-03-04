@@ -64,7 +64,13 @@
 			bottom:"50px"
 		}
 		mui.plusReady(function(){
+			
+			//don't all to back  at main page
+			mui.back = function(){
+				return false;
+			}
 			//get current webview 
+			
 			
 			var indexWebview =plus.webview.currentWebview();
 			// add 4 html webview to the main webview

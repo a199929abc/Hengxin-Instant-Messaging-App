@@ -79,6 +79,16 @@
 		<script type="text/javascript" src="js/app.js" ></script>
 		<script type="text/javascript">
 		mui.plusReady(function(){
+			
+			var userInfo = app.getUserGlobalInfo();
+			
+	
+			//distingust whether user login before 
+			if( userInfo != null){
+				mui.openWindow("index.html","index.html");
+			}
+			
+			
 			var userform = document.getElementById("userform");
 			var username = document.getElementById("username");
 			var txt_password = document.getElementById("txt_password");
@@ -117,6 +127,22 @@
 						success:function(data){
 							//服务器返回响应，根据响应结果，分析是否登录成功；
 							console.log(JSON.stringify(data));
+							
+							username.blur();
+							txt_password.blur();
+							
+							if(data.status == 200){
+								//jump to next PAGE
+								//SAVE GLOBAL USER OBJECT TO LOCAL STORAGE
+								var userInfoJson = data.data;
+								//store userinfo to localspace 
+								app.setUserGlobalInfo(userInfoJson);
+								//https://dev.dcloud.net.cn/mui/window/#openwindow jump to new html
+								mui.openWindow("index.html","index.html");
+								
+							}else{
+								app.showToast(data.msg,"error");
+							}
 							
 						},
 						error:function(xhr,type,errorThrown){

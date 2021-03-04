@@ -29,16 +29,17 @@ public class UserController {
 
         boolean usernameIsExist = userService.queryUsernameIsExist(user.getUsername());
 
-
         //1.1 login
-        Users userResult =null;
+        Users userResult = null;
         if(usernameIsExist){
-        userService.queryUserForLogin(user.getUsername(),MD5Utils.getMD5Str(user.getPassword()));
-        if(userResult== null){
+            System.out.println("User exist in the database" );
+        userResult = userService.queryUserForLogin(user.getUsername(),MD5Utils.getMD5Str(user.getPassword()));
+        if(userResult == null){
             return  IMoocJSONResult.errorMap("username or password are not correct");
         }
         }else{
             //1.2 register
+            System.out.println("Register for new user" );
             user.setNickname(user.getUsername());
             user.setFaceImage("");
             user.setFaceImageBig("");

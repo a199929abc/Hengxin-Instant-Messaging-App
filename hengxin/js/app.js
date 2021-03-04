@@ -2,7 +2,7 @@ window.app ={
 	/**
 	 * server port and url
 	 */
-	serverUrl : 'http://192.168.0.18:8080',
+	serverUrl : 'http://142.104.17.46:8080',
 	/**
 	 * @description  descide whether the user entered string is empty
 	 * 
@@ -16,8 +16,26 @@ window.app ={
 		return false;
 	},
 	
+	/**
+	 * package DEFAULT HTML5 提示框
+	 * @param {Object} msg
+	 * @param {Object} type
+	 */
 	showToast : function(msg,type){
 		plus.nativeUI.toast(msg,{icon:"image/"+type+".png",verticalAlign:"bottom" },{duration:"long"})
 		 
+	},
+	/**
+	 * @param {Object} user Store user global object 
+	 */
+	setUserGlobalInfo : function(user){
+		var userInfoStr = JSON.stringify(user);
+		plus.storage.setItem("userInfo",userInfoStr);
+	},
+	getUserGlobalInfo : function(){
+		var userInfoStr = plus.storage.getItem("userInfo");
+		return JSON.parse(userInfoStr);
 	}
+	
+	
 }
