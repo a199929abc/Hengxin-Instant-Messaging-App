@@ -13,11 +13,11 @@
 		<div class="mui-content">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
+					<a id="link_myface" href="javascript:;">
 						<span class="mui-pull-right mui-icon mui-icon-arrowright" 
 						style="line-height: 42px; color: lightgray; margin-left: 3px;"></span>
 						
-						<img class="mui-media-object mui-pull-right" src="image/bg.png">
+						<img id="img_my_face"class="mui-media-object mui-pull-right" src="image/bg.png">
 						<div class="mui-media-body" 
 						style="line-height: 42px; font-size: 16px;">
 							头像
@@ -29,7 +29,7 @@
 					<a href="javascript:;">
 						<span class="mui-pull-right mui-icon mui-icon-arrowright"
 						style=" color: lightgray; margin-left: 3px;"></span>
-						<span id="span_nickname" class="mui-pull-right" style="color: gray;font-size: 14px;">a199929abc</span>
+						<span id="span_nickname" class="mui-pull-right" style="color: gray;font-size: 14px;"></span>
 						<div class="mui-media-body"style=" font-size: 16px;">
 							昵称
 							
@@ -38,8 +38,7 @@
 				</li>
 				<li class="mui-table-view-cell mui-media">
 					<a href="javascript:;">
-						<span id="span_user" class="mui-pull-right" style="color: gray;font-size: 14px;">a199929abc</span>
-				
+						<span id="span_username" class="mui-pull-right" style="color: gray;font-size: 14px;"></span>
 						<div class="mui-media-body style=" font-size: 16px;"">
 							账户
 							
@@ -78,8 +77,48 @@
 		
 		
 		<script src="js/mui.js"></script>
+		<script src="js/app.js"></script>
 		<script type="text/javascript">
 			mui.init()
+			// 点击 “我”的时候 会出现webview 的event 所以监听事件 
+			mui.plusReady(function () {
+			    
+				var meWebview = plus.webview.currentWebview();
+				meWebview.addEventListener("show",function() {
+					refreshUserInfo();
+					
+				});
+				
+				var link_myface =document.getElementById("link_myface");
+				link_myface.addEventListener("tap",function(){
+					mui.openWindow("myface.html","myface.html")
+				});
+			});
+			
+			function refreshUserInfo(){
+				var user = app.getUserGlobalInfo();
+				
+			
+			
+				if(user != null){
+					var faceImage= user.faceImage;
+					var nickname = user.nickname;
+					var username = user.username;
+					
+					var span_nickname = document.getElementById("span_nickname");
+					var span_username = document.getElementById("span_username");
+					
+					span_nickname.innerHTML= nickname;
+					span_username.innerHTML= username;
+					
+					if(app.isNotNull(faceImage)){
+						
+						var img_my_face = document.getElementById("img_my_face");
+						img_my_face.src= app.imgServerUrl+faceImage;
+					}
+				}
+			}
+			
 		</script>
 	</body>
 
