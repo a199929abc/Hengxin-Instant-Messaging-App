@@ -2,7 +2,7 @@ window.app ={
 	/**
 	 * back end server port and url
 	 */
-	serverUrl : 'http://192.168.0.18:8080',
+	serverUrl : 'http://142.104.17.46:8080',
 	/**
 	 * Image server port and url
 	 */
