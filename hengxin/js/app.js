@@ -34,7 +34,7 @@ window.app ={
 	},
 	getUserGlobalInfo : function(){
 		var userInfoStr = plus.storage.getItem("userInfo");
-		return JSON.parse(userInfoStr);
+		return                       JSON.parse(userInfoStr);
 	}
 	
 	
