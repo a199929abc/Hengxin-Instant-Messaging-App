@@ -2,11 +2,11 @@ window.app ={
 	/**
 	 * back end server port and url
 	 */
-	serverUrl : 'http://142.104.17.46:8080',
+	serverUrl : 'http://142.104.17.117:8080',
 	/**
 	 * Image server port and url
 	 */
-	imgServerUrl : '',
+	imgServerUrl : 'http://142.104.17.103:88/group1/',
 	/**
 	 * @description  descide whether the user entered string is empty
 	 * 
@@ -38,7 +38,12 @@ window.app ={
 	},
 	getUserGlobalInfo : function(){
 		var userInfoStr = plus.storage.getItem("userInfo");
-		return                       JSON.parse(userInfoStr);
+		return JSON.parse(userInfoStr);
+	},
+	
+	userLogout: function(){
+		plus.storage.removeItem("userInfo");
+		
 	}
 	
 	

@@ -65,6 +65,11 @@
 		}
 		mui.plusReady(function(){
 			
+			
+			window.addEventListener('refresh', function(e){//执行刷新
+			  location.reload(); 
+			  }); 
+			
 			//don't all to back  at main page
 			mui.back = function(){
 				return false;
@@ -99,6 +104,7 @@
 				}
 			})
 		})
+	
 		
 	</script>
 </body>

@@ -26,7 +26,7 @@
 					</a>
 				</li>
 				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
+					<a id="link_nickname" href="javascript:;">
 						<span class="mui-pull-right mui-icon mui-icon-arrowright"
 						style=" color: lightgray; margin-left: 3px;"></span>
 						<span id="span_nickname" class="mui-pull-right" style="color: gray;font-size: 14px;"></span>
@@ -46,7 +46,7 @@
 					</a>
 				</li>
 				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
+					<a id="link_my_qrcode" href="javascript:;">
 					<span class="mui-pull-right mui-icon mui-icon-arrowright"
 					style=" color: lightgray; margin-left: 3px;"></span>
 						<img class="mui-media-object mui-pull-right" src="image/qrcode.png" 
@@ -63,11 +63,11 @@
 			<ul class = "mui-table-view">
 	
 				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
+					<a id="link_logout"href="javascript:;">
 						
-						<span id="span_user" class="mui-pull-right" style="text-align: center;"></span>
+						<span  class="mui-pull-right" style="text-align: center;"></span>
 				
-						<div class="mui-media-body " style=" text-align: center; font-size: 16px;">
+						<div id="span_user" class="mui-media-body " style=" text-align: center; font-size: 16px;">
 						Log out
 							
 						</div>
@@ -83,23 +83,55 @@
 			mui.init()
 			// 点击 “我”的时候 会出现webview 的event 所以监听事件 
 			mui.plusReady(function () {
-			    
+				
+				
 				var meWebview = plus.webview.currentWebview();
 				meWebview.addEventListener("show",function() {
 					refreshUserInfo();
 					
 				});
 				
-				var link_myface =document.getElementById("link_myface");
+				var link_myface =document.getElementById(id="link_myface");
 				link_myface.addEventListener("tap",function(){
-					mui.openWindow("myface.html","myface.html")
+					mui.openWindow("myface.html","myface.html");
 				});
+				
+				//页面跳转修改昵称
+				var link_nickname = document.getElementById(id="link_nickname");
+				link_nickname.addEventListener("tap", function(){
+						mui.openWindow("mynickname.html","mynickname.html");
+				});
+				window.addEventListener("refresh", function(){
+									refreshUserInfo();
+								});
+								
+				
+				//查看二维码
+								
+				var link_my_qrcode = document.getElementById(id="link_my_qrcode");
+				link_my_qrcode.addEventListener("tap", function(){
+					mui.openWindow({
+						url: "myQRCode.html", 
+						id: "myQRCode.html", 
+						styles: {}
+					})
+				}); 
+				
+				var link_logout= document.getElementById(id="link_logout");
+				link_logout.addEventListener("tap", function(){
+					app.userLogout();
+					mui.openWindow({
+						url: "login.html", 
+						id: "login.html", 
+						styles: {}
+					})
+				}); 
+				
+
 			});
 			
 			function refreshUserInfo(){
 				var user = app.getUserGlobalInfo();
-				
-			
 			
 				if(user != null){
 					var faceImage= user.faceImage;
@@ -115,9 +147,12 @@
 					if(app.isNotNull(faceImage)){
 						
 						var img_my_face = document.getElementById("img_my_face");
-						img_my_face.src= app.imgServerUrl+faceImage;
+						img_my_face.src= faceImage;
+						
 					}
+					
 				}
+				
 			}
 			
 		</script>
