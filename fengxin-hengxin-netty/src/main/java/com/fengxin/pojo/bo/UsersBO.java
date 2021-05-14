@@ -1,72 +1,35 @@
-package com.fengxin.pojo.vo;
+package com.fengxin.pojo.bo;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-
-public class UsersVO {
-
-    private String id;
-
-    private String username;
-
-    private String faceImage;
-
-    private String faceImageBig;
-
-    private String nickname;
-
-
-    private String qrcode;
-
-
-    public String getId() {
-        return id;
+public class UsersBO {
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFaceData() {
+        return faceData;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFaceData(String faceData) {
+        this.faceData = faceData;
     }
 
-    public String getFaceImage() {
-        return faceImage;
+    private String userId;
+
+    private String faceData;
+
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setFaceImage(String faceImage) {
-        this.faceImage = faceImage;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
-    public String getFaceImageBig() {
-        return faceImageBig;
-    }
-
-    public void setFaceImageBig(String faceImageBig) {
-        this.faceImageBig = faceImageBig;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getQrcode() {
-        return qrcode;
-    }
-
-    public void setQrcode(String qrcode) {
-        this.qrcode = qrcode;
-    }
-
+    private String nickName;
 
 
 

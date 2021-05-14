@@ -5,4 +5,5 @@ import com.fengxin.pojo.Users;
 import com.fengxin.utils.MyMapper;
 
 public interface UsersMapper extends MyMapper<Users> {
+    void updateByExampleSelective(Users user);
 }

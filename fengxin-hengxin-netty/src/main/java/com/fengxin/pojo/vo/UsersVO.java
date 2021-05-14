@@ -13,9 +13,7 @@ public class UsersVO {
 
     private String faceImageBig;
 
-
     private String nickname;
-
 
     private String qrcode;
 

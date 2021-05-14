@@ -81,7 +81,7 @@
 		mui.plusReady(function(){
 			
 			var userInfo = app.getUserGlobalInfo();
-			
+		
 	
 			//distingust whether user login before 
 			if( userInfo != null){
@@ -112,7 +112,7 @@
 					}
 					// get each individual device ID
 					var cid =plus.push.getClientInfo().clientid;
-					app.showToast(cid+"fdfdasfdasdsafadsfds","error");
+					app.showToast(cid,"error");
 					// CONNECT to SERVER IMPORTANT
 					mui.ajax(app.serverUrl+"/u/registOrLogin",{
 						data:{
