@@ -63,7 +63,8 @@
 				var currnetWebview = plus.webview.currentWebview();
 				var yourFriend = currnetWebview.willBeFriend;
 				console.log(JSON.stringify(yourFriend));
-				
+			
+			//获取上一页对象
 			var img_friend_face = document.getElementById("img_friend_face");
 			var lab_friend_nickname = document.getElementById("lab_friend_nickname");
 			var p_friend_username = document.getElementById("p_friend_username");
@@ -71,8 +72,45 @@
 			img_friend_face.src = yourFriend.faceImage;
 			lab_friend_nickname.innerHTML = yourFriend.nickname;
 			p_friend_username.innerHTML = "恒信号：" + yourFriend.username;
-
-
+			
+			//发送添加好友的请求
+			var btn_add_friend = document.getElementById("btn_add_friend");
+			btn_add_friend.addEventListener("tap",function(){
+				plus.nativeUI.showWaiting("请稍等...");
+				mui.ajax(app.serverUrl + "/u/addFriendRequest?myUserId=" + meInfo.id + 
+							"&friendUsername=" + yourFriend.username,{
+										data:{
+										},
+										dataType:'json',//服务器返回json格式数据
+										type:'post',//HTTP请求类型
+										timeout:10000,//超时时间设置为10秒；
+										headers:{'Content-Type':'application/json'},	              
+										success:function(data){
+											//服务器返回响应
+											plus.nativeUI.closeWaiting();
+											
+											if (data.status == 200) {
+												
+												app.showToast("好友请求已发送","success");
+												
+												mui.openWindow({
+													url:"index.html",
+													id:"index.html",
+										
+												});
+												
+											} else {
+												app.showToast(data.msg, "error");
+											}
+										}
+									}); 
+			}); 
+					//绑定返回的按钮 
+					var btn_back = document.getElementById("btn_back");
+					btn_back.addEventListener("tap",function(){
+						mui.back();
+						
+					});
 			});
 		</script>
 	</body>

@@ -2,6 +2,7 @@ package com.fengxin.service;
 
 import com.fengxin.pojo.Users;
 import com.fengxin.pojo.vo.FriendRequestVO;
+import com.fengxin.pojo.vo.MyFriendsVO;
 
 import java.util.List;
 
@@ -32,4 +33,9 @@ public interface UserService {
     //
     public List<FriendRequestVO> queryFriendRequestList(String acceptUserId);
 
+    public void deleteFriendRequest(String sendUserId, String acceptUserId);
+
+    public void passFriendRequest(String sendUserId, String acceptUserId);
+
+    public List<MyFriendsVO> queryMyFriends(String userId);
 }

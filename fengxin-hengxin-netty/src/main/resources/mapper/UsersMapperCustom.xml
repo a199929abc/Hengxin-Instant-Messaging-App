@@ -3,7 +3,6 @@
 <mapper namespace="com.fengxin.mapper.UsersMapperCustom" >
 
   <select id="queryFriendRequestList" resultType="com.fengxin.pojo.vo.FriendRequestVO"
-
   parameterType="String">
     select
       sender.id as sendUserId,
@@ -18,9 +17,6 @@
         fr.send_user_id = sender.id
     where
       fr.accept_user_id = #{acceptUserId}
-
-
-
 
   </select>
 </mapper>

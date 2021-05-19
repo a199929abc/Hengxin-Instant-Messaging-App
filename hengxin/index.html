@@ -103,8 +103,21 @@
 					}
 				}
 			})
-		})
-	
+			
+			//延时加载
+			
+			setTimeout("initData()","1000");
+			
+		});
+		
+		//预加载
+		function initData(){
+			var hengxinchatlist = plus.webview.getWebviewById("hengxin-chatlist.html");
+						mui.fire(hengxinchatlist, "refresh");
+						
+						var hengxinpesoninfo = plus.webview.getWebviewById("hengxin-pesoninfo.html");
+						mui.fire(hengxinpesoninfo, "refresh");
+		}
 		
 	</script>
 </body>

@@ -17,6 +17,7 @@ public class FastDFSServiceImpl implements FastDFSService {
     @Autowired
     private FastFileStorageClient fastFileStorageClient;
 
+    
     @Override
     public String upload(MultipartFile file) throws Exception {
 

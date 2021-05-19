@@ -1,7 +1,9 @@
 package com.fengxin.controller;
+import com.fengxin.enums.OperatorFriendRequestTypeEnum;
 import com.fengxin.enums.SearchFriendsStatusEnum;
 import com.fengxin.pojo.Users;
 import com.fengxin.pojo.bo.UsersBO;
+import com.fengxin.pojo.vo.MyFriendsVO;
 import com.fengxin.pojo.vo.UsersVO;
 import com.fengxin.service.UserService;
 import com.fengxin.utils.FastDFSClient;
@@ -15,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.fengxin.service.impl.UserServiceimpl;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 
 @RestController
@@ -142,5 +146,50 @@ public class UserController {
         return IMoocJSONResult.ok(userService.queryFriendRequestList(userId));
 
     }
+    /**
+     * @Description: 接受方 通过或者忽略朋友请求
+     */
+    @PostMapping("/operFriendRequest")
+    public IMoocJSONResult operFriendRequest(String acceptUserId, String sendUserId,
+                                             Integer operType) {
 
-}
+        // 0. acceptUserId sendUserId opertype  不也能为空
+        if (StringUtils.isBlank(acceptUserId)
+                || StringUtils.isBlank(sendUserId)
+                || operType == null) {
+            return IMoocJSONResult.errorMsg("");
+        }
+        // 1. 如果operType 没有对应的枚举值，则直接抛出空错误信息
+        if (StringUtils.isBlank(OperatorFriendRequestTypeEnum.getMsgByType(operType))) {
+            return IMoocJSONResult.errorMsg("");
+        }
+
+        if (operType == OperatorFriendRequestTypeEnum.IGNORE.type) {
+            // 2. 判断如果忽略好友请求，则直接删除好友请求的数据库表记录
+            userService.deleteFriendRequest(sendUserId, acceptUserId);
+        }else if (operType == OperatorFriendRequestTypeEnum.PASS.type) {
+            // 3. 判断如果是通过好友请求，则互相增加好友记录到数据库对应的表
+            //	   然后删除好友请求的数据库表记录
+            userService.passFriendRequest(sendUserId, acceptUserId);
+        }
+        List<MyFriendsVO> myFirends = userService.queryMyFriends(acceptUserId);
+
+        return IMoocJSONResult.ok(myFirends);
+
+    }
+    @PostMapping("/myFriends")
+    public IMoocJSONResult myFriends(String userId){
+        //0 双方名字不能为空,根据账户匹配查询
+        if(StringUtils.isBlank(userId)){
+            return IMoocJSONResult.errorMsg("");
+            //查询数据库列表
+        }
+        // 1. 数据库查询好友列表
+        List<MyFriendsVO> myFirends = userService.queryMyFriends(userId);
+
+        return IMoocJSONResult.ok(myFirends);
+
+
+    }
+
+    }

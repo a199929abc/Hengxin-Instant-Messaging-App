@@ -8,17 +8,17 @@ public class Users {
     private String id;
 
     /**
-     * 鐢ㄦ埛鍚嶏紝璐﹀彿锛屾厱淇″彿
+     *
      */
     private String username;
 
     /**
-     * 瀵嗙爜
+
      */
     private String password;
 
     /**
-     * 鎴戠殑澶村儚锛屽?鏋滄病鏈夐粯璁ょ粰涓?紶
+     *
      */
     @Column(name = "face_image")
     private String faceImage;
@@ -27,12 +27,12 @@ public class Users {
     private String faceImageBig;
 
     /**
-     * 鏄电О
+     *
      */
     private String nickname;
 
     /**
-     * 鏂扮敤鎴锋敞鍐屽悗榛樿?鍚庡彴鐢熸垚浜岀淮鐮侊紝骞朵笖涓婁紶鍒癴astdfs
+     *
      */
     private String qrcode;
 

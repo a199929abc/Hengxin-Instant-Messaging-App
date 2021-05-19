@@ -3,7 +3,6 @@
 <mapper namespace="com.fengxin.mapper.UsersMapperCustom" >
 
   <select id="queryFriendRequestList" resultType="com.fengxin.pojo.vo.FriendRequestVO"
-
   parameterType="String">
     select
       sender.id as sendUserId,
@@ -19,8 +18,23 @@
     where
       fr.accept_user_id = #{acceptUserId}
 
+  </select>
 
-
+  <select id="queryMyFriends" resultType="com.fengxin.pojo.vo.MyFriendsVO"
+          parameterType="String">
+    select
+      u.id as friendUserId,
+      u.username as friendUsername,
+      u.face_image as friendFaceImage,
+      u.nickname as friendNickname
+    from
+      my_friends mf
+        left join
+      users u
+      on
+        u.id = mf.my_friend_user_id
+    where
+      mf.my_user_id = #{userId}
 
   </select>
 </mapper>
