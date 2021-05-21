@@ -2,6 +2,7 @@ window.app ={
 	/**
 	 * back end server port and url
 	 */
+	nettyServerUrl: 'ws://142.104.17.117:8088/ws',
 	serverUrl : 'http://142.104.17.117:8080',
 	/**
 	 * Image server port and url

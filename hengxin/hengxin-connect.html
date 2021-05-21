@@ -27,7 +27,7 @@
 		<div class="mui-content">
 			<div id='list' class="mui-indexed-list">
 				<div class="mui-indexed-list-search mui-input-row mui-search">
-					<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="搜索机场">
+					<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="搜索朋友">
 				</div>
 				<div class="mui-indexed-list-bar">
 					<a>A</a>
@@ -116,7 +116,6 @@
 						var nicknameStarter = enWords[i];
 						contactHtml += '<li data-group="' + nicknameStarter + '" class="mui-table-view-divider mui-indexed-list-group">' + nicknameStarter + '</li>';
 						for (var j = 0 ; j < friendArray.length ; j ++ ) {
-							console.log(j);
 							contactHtml += '' +
 										'<li friendUserId="' + friendArray[j].friendUserId + '" friendNickname="' + friendArray[j].friendNickname + '" friendFaceImage="' + friendArray[j].friendFaceImage + '" class="chat-with-friend mui-media mui-table-view-cell mui-indexed-list-item" style="padding: 8px 10px;">' +
 											'<img class="mui-media-object mui-pull-left" style="max-width: 35px;height: 35px;" src="' + friendArray[j].friendFaceImage + '"/>' +
@@ -129,9 +128,26 @@
 				clearContactArray();
 				//渲染HTML
 				document.getElementById("contactList").innerHTML = contactHtml;
-
-				
-				
+					
+				//为好友通讯录批量绑定
+				mui("#contactList").on("tap", ".chat-with-friend", function(e){
+						var friendUserId = this.getAttribute("friendUserId");
+						var friendNickname = this.getAttribute("friendNickname");
+						var friendFaceImage = this.getAttribute("friendFaceImage");
+								
+								// 打开聊天子页面
+								mui.openWindow({
+									url: "chatting.html",
+									id: "chatting-" + friendUserId,	// 每个朋友的聊天页面都是唯一对应的
+									extras: {
+										friendUserId: friendUserId,
+										friendNickname: friendNickname,
+										friendFaceImage: friendFaceImage
+										},
+								
+							});
+						});
+			
 			}
 			
 			

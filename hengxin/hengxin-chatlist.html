@@ -99,13 +99,74 @@
 				// 加载好友请求记录
 				var thisWebview = plus.webview.currentWebview();
 				thisWebview.addEventListener("show", function(){
-					loadingFriendRequests();
+							loadingFriendRequests();
 				});
 				
-				window.addEventListener("refresh", function(){
-									loadingFriendRequests();
+				window.addEventListener("refresh  ", function(){
+							loadingFriendRequests();
+							CHAT.init();
 								});
+						CHAT.init();
+								
 				});
+				
+				window.CHAT = {
+								socket: null,
+								init: function() {
+									if (window.WebSocket) {
+										
+										// 如果当前的状态已经连接，那就不需要重复初始化websocket
+										if (CHAT.socket != null 
+											&& CHAT.socket != undefined 
+											&& CHAT.socket.readyState == WebSocket.OPEN) {
+											return false;
+										}
+										
+										CHAT.socket = new WebSocket(app.nettyServerUrl);
+										CHAT.socket.onopen = CHAT.wsopen,
+										CHAT.socket.onclose = CHAT.wsclose,
+										CHAT.socket.onerror = CHAT.wserror,
+										CHAT.socket.onmessage = CHAT.wsmessage;
+									} else {
+										alert("手机设备过旧，请升级手机设备...");
+									}
+								},
+								chat: function(msg) {
+									CHAT.socket.send(msg);
+									
+								},
+								reChat: function(msg) {
+									
+								},
+								wsopen: function() {
+									console.log("websocket连接已建立...");
+									
+									var me = app.getUserGlobalInfo();
+									// 构建ChatMsg
+									v
+								},
+								wsmessage: function(e) {
+											
+									}
+									
+								
+								},
+								wsclose: function() {
+									console.log("连接关闭...");
+								},
+								wserror: function() {
+									console.log("发生错误...");
+								},
+								signMsgList: function(unSignedMsgIds) {
+								
+								},
+								keepalive: function() {
+									
+								}
+							};
+				
+				
+				
 				
 
 			//加载好友请求记录列表

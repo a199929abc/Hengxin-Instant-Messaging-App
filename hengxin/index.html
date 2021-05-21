@@ -20,7 +20,7 @@
 </head>
 <body>
 	<header class="mui-bar mui-bar-nav title">
-		<h1 class="mui-title title-color"><b>恒信</b></h1>
+		<h1 class="mui-title title-color" id="hengxin_title"><b>恒信</b></h1>
 	</header>
 	
 	<nav class="mui-bar mui-bar-tab">
@@ -70,6 +70,9 @@
 			  location.reload(); 
 			  }); 
 			
+			
+			// 对网络事件监听
+			netChangeSwitch();
 			//don't all to back  at main page
 			mui.back = function(){
 				return false;
@@ -117,6 +120,24 @@
 						
 						var hengxinpesoninfo = plus.webview.getWebviewById("hengxin-pesoninfo.html");
 						mui.fire(hengxinpesoninfo, "refresh");
+		}
+		//监听网络状态更改
+		function netChangeSwitch(){
+			document.addEventListener("netchange",function(){
+				// 网络状态获取
+				var connectionStatus = plus.networkinfo.getCurrentType();
+				if (connectionStatus != 0 && connectionStatus != 1) {
+					//重新打开网络连接
+					var hengxin_title= document.getElementById("hengxin_title");
+						hengxin_title.innerHTML = "<b>恒信</b>";
+				}else{
+					//关闭网络连接
+					var hengxin_title= document.getElementById("hengxin_title");
+						hengxin_title.innerHTML = "<b>恒信(未连接)</b>";
+				}
+				
+				
+			});
 		}
 		
 	</script>
