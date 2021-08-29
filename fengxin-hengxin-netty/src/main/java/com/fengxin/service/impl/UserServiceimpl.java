@@ -1,10 +1,9 @@
 package com.fengxin.service.impl;
 
+import com.fengxin.enums.MsgSignFlagEnum;
 import com.fengxin.enums.SearchFriendsStatusEnum;
-import com.fengxin.mapper.FriendsRequestMapper;
-import com.fengxin.mapper.MyFriendsMapper;
-import com.fengxin.mapper.UsersMapper;
-import com.fengxin.mapper.UsersMapperCustom;
+import com.fengxin.mapper.*;
+import com.fengxin.netty.ChatMsg;
 import com.fengxin.pojo.FriendsRequest;
 import com.fengxin.pojo.MyFriends;
 import com.fengxin.pojo.Users;
@@ -53,6 +52,9 @@ public class UserServiceimpl implements UserService {
 
     @Autowired
     private FastDFSClient fastDFSClient;
+
+    @Autowired
+    private ChatMsgMapper chatMsgMapper;
 
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
@@ -236,6 +238,8 @@ public class UserServiceimpl implements UserService {
     return myFriends;
     }
 
+
+
     @Transactional(propagation = Propagation.REQUIRED)
     private void saveFriends(String sendUserId, String acceptUserId) {
         MyFriends myFriends = new MyFriends();
@@ -246,6 +250,27 @@ public class UserServiceimpl implements UserService {
         myFriendsMapper.insert(myFriends);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public String saveMsg(ChatMsg chatMsg) {
+        com.fengxin.pojo.ChatMsg msgDB = new com.fengxin.pojo.ChatMsg();
+        String msgId = sid.nextShort();
+        msgDB.setId(msgId);
+        msgDB.setAcceptUserId(chatMsg.getReceiverId());
+        msgDB.setSendUserId(chatMsg.getSenderId());
+        msgDB.setCreateTime(new Date());
+        msgDB.setSignFlag(MsgSignFlagEnum.unsign.type);
+        msgDB.setMsg(chatMsg.getMsg());
+
+        chatMsgMapper.insert(msgDB);
+
+        return msgId;
+    }
+
+    @Override
+    public void updateMsgSigned(List<String> msgIdList) {
+        userMapperCustom.batchUpdateMsgSigned(msgIdList);
+    }
 
 
 }

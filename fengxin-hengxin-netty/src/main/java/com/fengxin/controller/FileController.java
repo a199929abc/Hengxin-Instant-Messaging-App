@@ -33,7 +33,7 @@ public class FileController {
         // 使用fastdfs上传文件
         System.out.println("User ID : "+userId);
         String path = fastDFSService.upload(file);
-        String fdfsServer = "http://142.104.17.103:88/";
+        String fdfsServer = "http://18.220.84.169:88/";
         System.out.println(fdfsServer + path);
         String url = fdfsServer + path;
         //renew user head

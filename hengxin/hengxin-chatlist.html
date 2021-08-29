@@ -132,24 +132,42 @@
 									}
 								},
 								chat: function(msg) {
-									CHAT.socket.send(msg);
+									// 如果当前websocket的状态是已打开，则直接发送， 否则重连
+											if (CHAT.socket != null 
+													&& CHAT.socket != undefined  
+													&& CHAT.socket.readyState == WebSocket.OPEN) {
+													CHAT.socket.send(msg);
+											} else {
+												// 重连websocket
+												CHAT.init();
+												setTimeout("CHAT.reChat('" + msg + "')", "1000");
+											}
+							
 									
 								},
 								reChat: function(msg) {
-									
+										console.log("消息重新发送...");
+										CHAT.socket.send(msg);
 								},
 								wsopen: function() {
-									console.log("websocket连接已建立...");
-									
-									var me = app.getUserGlobalInfo();
+										console.log("websocket连接已建立...");
+										var me = app.getUserGlobalInfo();
 									// 构建ChatMsg
-									v
+									    var chatMsg = new app.ChatMsg(me.id,null,null,null);
+									//构建datacontent
+									var dataContent = new app.DataContent(1,chatMsg,null)
+									//发送WebSocket
+									CHAT.chat(JSON.stringify(dataContent()));
+									
 								},
 								wsmessage: function(e) {
-											
-									}
-									
+								console.log("接受到消息：" + e.data);				
+								// 调用聊天webview的receiveMsg方法				
+								var chatWebview = plus.webview.getWebviewById("chatting-210522A9W65DAX8H");	
+								chatWebview.evalJS("receiveMsg('" + e.data + "')");
+								chatWebview.evalJS("resizeScreen()");
 								
+									
 								},
 								wsclose: function() {
 									console.log("连接关闭...");
@@ -260,13 +278,7 @@
 				
 				
 			}
-				
 			
-			
-			
-			
-			
-
 		</script>
 	</body>
 

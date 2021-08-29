@@ -2,12 +2,12 @@ window.app ={
 	/**
 	 * back end server port and url
 	 */
-	nettyServerUrl: 'ws://142.104.17.117:8088/ws',
-	serverUrl : 'http://142.104.17.117:8080',
+	nettyServerUrl: 'ws://192.168.0.12:8081/ws',
+	serverUrl : 'http://192.168.0.12:8080',
 	/**
 	 * Image server port and url
 	 */
-	imgServerUrl : 'http://142.104.17.103:88/group1/',
+	imgServerUrl : 'http://18.220.84.169:88/group1/',
 	/**
 	 * @description  descide whether the user entered string is empty
 	 * 
@@ -67,5 +67,30 @@ window.app ={
 		
 		return JSON.parse(contactListStr);
 	},
+	/**
+	 * 和后端枚举对应
+	 */
+	CONNECT: 1, 
+	CHAT: 2,
+	SIGNED: 3,
+	KEEPALIVE: 4,
+	
+	ChatMsg: function(senderId,receiverId, msg, msgId){
+		this.senderId = senderId;
+		this.receiverId = receiverId;
+		this.msg = msg;
+		this.msgId =msgId;
+	},
+	/**
+	 * @param {Object} action
+	 * @param {Object} extand
+	 * @param {Object} chatMsg 构建消息模型对象
+	 */
+	DataContent: function(action,extand, chatMsg){
+		this.action = action;
+		this.extand = extand;
+		this.chatMsg = chatMsg;
+	
+	}
 	
 }

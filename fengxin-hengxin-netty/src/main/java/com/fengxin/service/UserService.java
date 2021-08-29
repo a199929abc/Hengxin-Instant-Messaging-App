@@ -1,5 +1,6 @@
 package com.fengxin.service;
 
+import com.fengxin.netty.ChatMsg;
 import com.fengxin.pojo.Users;
 import com.fengxin.pojo.vo.FriendRequestVO;
 import com.fengxin.pojo.vo.MyFriendsVO;
@@ -38,4 +39,19 @@ public interface UserService {
     public void passFriendRequest(String sendUserId, String acceptUserId);
 
     public List<MyFriendsVO> queryMyFriends(String userId);
+
+    //传入netty 包下的
+
+    /**
+     * 保存聊天消息到数据库
+     * @param chatMsg
+     * @return
+     */
+    public String saveMsg(ChatMsg chatMsg);
+
+    /**
+     * 批量签收
+     * @param msgIdList
+     */
+    public void updateMsgSigned(List<String> msgIdList);
 }
